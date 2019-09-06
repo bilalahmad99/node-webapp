@@ -1,7 +1,5 @@
 #!/usr/bin/groovy
 
-@Library('git@github.com:bilalahmad99/node-webapp.git')
-
 def pipeline = new io.estrado.Pipeline()
 
 podTemplate(label: 'jenkins-pipeline', containers: [
