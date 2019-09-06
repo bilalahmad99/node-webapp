@@ -3,7 +3,7 @@
 podTemplate(label: 'jenkins-pipeline', containers: [
     containerTemplate(name: 'jnlp', image: 'lachlanevenson/jnlp-slave:3.10-1-alpine', args: '${computer.jnlpmac} ${computer.name}', workingDir: '/home/jenkins', resourceRequestCpu: '200m', resourceLimitCpu: '300m', resourceRequestMemory: '256Mi', resourceLimitMemory: '512Mi'),
     containerTemplate(name: 'docker', image: 'docker:1.12.6', command: 'cat', ttyEnabled: true),
-    containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:v2.6.0', command: 'cat', ttyEnabled: true),
+    containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:latest', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.4.8', command: 'cat', ttyEnabled: true)
 ],
 volumes:[
@@ -17,8 +17,7 @@ volumes:[
     stage ('deploy to k8s') {
       container('helm') {
         // Deploy using Helm chart
-        sh "/helm init --client-only --skip-refresh"
-        sh "/helm upgrade --install --wait node-webapp node-webapp/k8s-helm-chart/node-webapp/"
+        sh "helm upgrade node-webapp node-webapp/k8s-helm-chart/node-webapp/"
       }
     }
   }
