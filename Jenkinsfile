@@ -12,21 +12,13 @@ volumes:[
 
   node ('jenkins-pipeline') {
 
-    def pwd = pwd()
-    def chart_dir = "${pwd}/k8s-helm-chart/node-webapp"
-
     checkout scm
-
-    // read in required jenkins workflow config values
-    def inputFile = readFile('Jenkinsfile.json')
-    def config = new groovy.json.JsonSlurperClassic().parseText(inputFile)
-    println "pipeline config ==> ${config}"
 
     stage ('deploy to k8s') {
       container('helm') {
         // Deploy using Helm chart
         sh "/helm init --client-only --skip-refresh"
-        sh "/helm upgrade --install --wait node-webapp node-webapp/node-webapp"
+        sh "/helm upgrade --install --wait node-webapp node-webapp/k8s-helm-chart/node-webapp/"
       }
     }
   }
