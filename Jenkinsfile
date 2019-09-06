@@ -28,7 +28,7 @@ volumes:[
         container('helm') {
           // Deploy using Helm chart
           sh "/helm init --client-only --skip-refresh"
-          sh "/helm upgrade --install --wait 
+          sh "/helm upgrade --install --wait node-webapp node-webapp/node-webapp
 
         }
       }
