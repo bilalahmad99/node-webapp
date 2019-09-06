@@ -22,15 +22,11 @@ volumes:[
     def config = new groovy.json.JsonSlurperClassic().parseText(inputFile)
     println "pipeline config ==> ${config}"
 
-    // deploy only the master branch
-    if (env.BRANCH_NAME == 'master') {
-      stage ('deploy to k8s') {
-        container('helm') {
-          // Deploy using Helm chart
-          sh "/helm init --client-only --skip-refresh"
-          sh "/helm upgrade --install --wait node-webapp node-webapp/node-webapp
-
-        }
+    stage ('deploy to k8s') {
+      container('helm') {
+        // Deploy using Helm chart
+        sh "/helm init --client-only --skip-refresh"
+        sh "/helm upgrade --install --wait node-webapp node-webapp/node-webapp"
       }
     }
   }
