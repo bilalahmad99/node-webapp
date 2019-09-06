@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "node-webapp.fullname" . }}-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "olxqa-web.name" . }}
+  minReplicas: {{ .Values.autoscale.minReplica }}
+  maxReplicas: {{ .Values.autoscale.maxReplica }}
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: {{ .Values.autoscale.cpuTargetAvgUtil }}
+
