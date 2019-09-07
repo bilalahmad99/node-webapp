@@ -23,9 +23,7 @@ volumes:[
     stage ('deploy to k8s') {
       container('helm') {
         // Deploy using Helm chart
-        sh "pwd"
-        sh "ls"
-        sh "helm upgrade node-webapp-prod-release node-webapp/k8s-helm-chart/node-webapp/"
+        sh "helm upgrade node-webapp-prod-release k8s-helm-chart/node-webapp/"
       }
     }
   }
