@@ -1,0 +1,9 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.name }}
+spec:
+  backend:
+    serviceName: {{ .Values.service.name }}
+    servicePort: {{ .Values.service.port }}

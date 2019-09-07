@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Values.webapp.name }}
+  namespace: {{ .Values.webapp.namespace }}
+spec:
+  selector:
+    matchLabels:
+      run: {{ .Values.webapp.run }}
+  template:
+    metadata:
+      labels:
+        run: {{ .Values.webapp.run }}
+    spec:
+      containers:
+      - image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: {{ .Values.webapp.name }}
+        ports:
+        - containerPort: {{ .Values.webapp.containerPort }}
+          protocol: {{ .Values.webapp.protocol }}
