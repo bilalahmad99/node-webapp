@@ -7,3 +7,4 @@ spec:
   backend:
     serviceName: {{ .Values.service.name }}
     servicePort: {{ .Values.service.port }}
+{{- end }}
