@@ -16,6 +16,7 @@ volumes:[
 
     stage ('test docker') {
       container('docker') {
+        echo 'env.PATH=' + env.PATH
         withEnv(['PATH+EXTRA=/usr/sbin:/usr/bin:/sbin:/bin']) {
           sh "docker ps -a"
         }
