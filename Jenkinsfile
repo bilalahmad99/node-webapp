@@ -16,8 +16,9 @@ volumes:[
 
     stage ('test docker') {
       container('docker') {
-        // Deploy using Helm chart
-        sh "docke ps -a"
+        withEnv(['PATH+EXTRA=/usr/sbin:/usr/bin:/sbin:/bin']) {
+          sh "docker ps -a"
+        }
       }
     }
 
