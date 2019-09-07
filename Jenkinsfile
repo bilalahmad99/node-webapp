@@ -17,7 +17,6 @@ volumes:[
         // Deploy using Helm chart
         echo 'env.PATH=' + env.PATH
         sh "helm list"
-        sh "helm repo update"
       }
     }
 
