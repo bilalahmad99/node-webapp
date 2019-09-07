@@ -17,13 +17,16 @@ volumes:[
         // Deploy using Helm chart
         echo 'env.PATH=' + env.PATH
         sh "helm list"
+        sh "helm repo update"
       }
     }
 
     stage ('deploy to k8s') {
       container('helm') {
         // Deploy using Helm chart
-        sh "helm upgrade node-webapp node-webapp/k8s-helm-chart/node-webapp/"
+        sh "pwd"
+        sh "ls"
+        sh "helm upgrade node-webapp-prod-release node-webapp/k8s-helm-chart/node-webapp/"
       }
     }
   }
